@@ -1413,7 +1413,7 @@ __metadata:
     next-intl: "catalog:"
     postcss: "catalog:"
     react: "catalog:"
-    react-awesome-lightbox: "npm:1.8.1"
+    react-awesome-lightbox: "npm:2.0.0"
     react-dom: "catalog:"
     react-icons: "catalog:"
     react-pdf: "npm:10.4.1"
@@ -6931,12 +6931,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-awesome-lightbox@npm:1.8.1":
-  version: 1.8.1
-  resolution: "react-awesome-lightbox@npm:1.8.1"
+"react-awesome-lightbox@npm:2.0.0":
+  version: 2.0.0
+  resolution: "react-awesome-lightbox@npm:2.0.0"
   peerDependencies:
-    react: ^16||^17
-  checksum: 10c0/0f51989415bebb55d46b5109cc7dbe79a13b0ec1ed50f16e2aebdc227b4ce7d2cc093c00ed2c9330c3badbb1ee71f86c89d2672d03f7e53b2357e3470c19461e
+    react: ^18.0.0 || ^19.0.0
+    react-dom: ^18.0.0 || ^19.0.0
+  checksum: 10c0/cfab32d083616a1175f1c77a4ca739a36bf12be4ba8becb05ad4fe9beab243c7389ecba7dbba8ef3e7f2bfef23e32b03dfdba102597b66a1183c36858e662ceb
   languageName: node
   linkType: hard
 
