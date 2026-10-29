@@ -1387,7 +1387,7 @@ __metadata:
     "@tanstack/react-query": "catalog:"
     "@tiptap/core": "npm:3.31.3"
     "@tiptap/extension-superscript": "npm:3.31.3"
-    "@tiptap/extension-table": "npm:3.31.3"
+    "@tiptap/extension-table": "npm:3.32.0"
     "@tiptap/extension-text-align": "npm:3.31.3"
     "@tiptap/extension-text-style": "npm:3.31.3"
     "@tiptap/extensions": "npm:3.31.3"
@@ -3436,13 +3436,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tiptap/extension-table@npm:3.31.3":
-  version: 3.31.3
-  resolution: "@tiptap/extension-table@npm:3.31.3"
+"@tiptap/extension-table@npm:3.32.0":
+  version: 3.32.0
+  resolution: "@tiptap/extension-table@npm:3.32.0"
   peerDependencies:
-    "@tiptap/core": 3.31.3
-    "@tiptap/pm": 3.31.3
-  checksum: 10c0/0fb9b0e1ae9365a7ee9c8bf6df55694741612eb19b4d3aede736bf6430efad1cc078c3c0c9a288ea1c76b6c5df97e736b256c244ce4f1783e97390c3206e3a56
+    "@tiptap/core": 3.32.0
+    "@tiptap/pm": 3.32.0
+  checksum: 10c0/6fe757e637eeee9bf52e6cad028837844bf072a26e774f47a87519b32a3ed828d9e44dbc7e15347bab8625e31f0fefc2faa37bd4f55fad0ba8e1999b34ae13b6
   languageName: node
   linkType: hard
 
