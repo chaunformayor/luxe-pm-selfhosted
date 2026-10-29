@@ -1385,7 +1385,7 @@ __metadata:
     "@microrealestate/shared": "workspace:*"
     "@tailwindcss/postcss": "catalog:"
     "@tanstack/react-query": "catalog:"
-    "@tiptap/core": "npm:3.31.3"
+    "@tiptap/core": "npm:3.32.0"
     "@tiptap/extension-superscript": "npm:3.31.3"
     "@tiptap/extension-table": "npm:3.31.3"
     "@tiptap/extension-text-align": "npm:3.31.3"
@@ -3222,6 +3222,15 @@ __metadata:
   peerDependencies:
     "@tiptap/pm": 3.31.3
   checksum: 10c0/f43dd23a64a08e7ccd2d8c8cbed11db7148e9942522647454096df8040fa6a7063611a404edc94584bc02769a218e7e63d3c549c52928b6483cefe069bdac49a
+  languageName: node
+  linkType: hard
+
+"@tiptap/core@npm:3.32.0":
+  version: 3.32.0
+  resolution: "@tiptap/core@npm:3.32.0"
+  peerDependencies:
+    "@tiptap/pm": 3.32.0
+  checksum: 10c0/b92cb4a41b0a51bc732fe1eca4a5e4abd24248e2307be333d65bddf98c7e1d18c11c969bcd3633c441f6aa85a754bb3ac0888288e2465c53411a135893ab8cb9
   languageName: node
   linkType: hard
 
