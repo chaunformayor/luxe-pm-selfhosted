@@ -38,6 +38,6 @@ export async function get(params) {
   });
 
   data.cssUrl = fileUrl(path.join(TEMPLATES_DIRECTORY, 'css', 'print.css'));
-  data.logoUrl = fileUrl(path.join(TEMPLATES_DIRECTORY, 'img', 'logo.png'));
+  data.logoUrl = fileUrl(path.join(TEMPLATES_DIRECTORY, 'img', 'logo.svg'));
   return data;
 }

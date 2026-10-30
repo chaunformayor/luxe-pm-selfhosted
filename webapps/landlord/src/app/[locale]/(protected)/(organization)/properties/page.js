@@ -2,7 +2,10 @@
 
 import { Button } from '@microrealestate/commonui/components/ui/button';
 import { cn } from '@microrealestate/commonui/utils';
-import { PROPERTY_COUNT_WARN_THRESHOLD } from '@microrealestate/shared';
+import {
+  PROPERTY_COUNT_WARN_THRESHOLD,
+  SHOW_UPSTREAM_PROMPTS
+} from '@microrealestate/shared';
 import { useQuery } from '@tanstack/react-query';
 import { useTranslations } from 'next-intl';
 import { useCallback, useMemo, useState } from 'react';
@@ -82,7 +85,8 @@ function Properties() {
   );
 
   const propertyCount = data?.length ?? 0;
-  const overThreshold = propertyCount > PROPERTY_COUNT_WARN_THRESHOLD;
+  const overThreshold =
+    SHOW_UPSTREAM_PROMPTS && propertyCount > PROPERTY_COUNT_WARN_THRESHOLD;
 
   const renderActions = useMemo(() => {
     const renderActions = () => (
@@ -96,19 +100,21 @@ function Properties() {
           <LuCirclePlus className="size-4" />
           {t('Add a property')}
         </Button>
-        <span
-          className={cn(
-            'text-xs flex items-center justify-center md:justify-end gap-1',
-            overThreshold ? 'text-warning' : 'text-muted-foreground'
-          )}
-          data-cy="propertyCountCaption"
-        >
-          {overThreshold ? <LuTriangleAlert className="size-3.5" /> : null}
-          {t('{used} of {max} properties', {
-            used: propertyCount,
-            max: PROPERTY_COUNT_WARN_THRESHOLD
-          })}
-        </span>
+        {SHOW_UPSTREAM_PROMPTS ? (
+          <span
+            className={cn(
+              'text-xs flex items-center justify-center md:justify-end gap-1',
+              overThreshold ? 'text-warning' : 'text-muted-foreground'
+            )}
+            data-cy="propertyCountCaption"
+          >
+            {overThreshold ? <LuTriangleAlert className="size-3.5" /> : null}
+            {t('{used} of {max} properties', {
+              used: propertyCount,
+              max: PROPERTY_COUNT_WARN_THRESHOLD
+            })}
+          </span>
+        ) : null}
       </div>
     );
     return renderActions;

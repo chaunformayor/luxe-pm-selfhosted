@@ -3,6 +3,7 @@
 import { Shell } from '@microrealestate/commonui/components/shell/Shell';
 import Loading from '@microrealestate/commonui/components/ui/Loading';
 import { useSession } from '@microrealestate/commonui/providers/SessionProvider';
+import { SHOW_UPSTREAM_PROMPTS } from '@microrealestate/shared';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { observer } from 'mobx-react-lite';
 import moment from 'moment';
@@ -51,7 +52,9 @@ function LandlordShell({ children }) {
   });
 
   const showDonateDialog =
-    donatePrompt.shouldShow && pathname.endsWith('/dashboard');
+    SHOW_UPSTREAM_PROMPTS &&
+    donatePrompt.shouldShow &&
+    pathname.endsWith('/dashboard');
 
   const isSetupRoute =
     pathname.startsWith('/setuporganization') ||
@@ -132,7 +135,11 @@ function LandlordShell({ children }) {
         onMenuClick={handleMenuClick}
         onUserMenuClick={handleUserMenuClick}
         onSignOut={handleSignOut}
-        userMenuFooter={<SponsorLink dataCy="sponsorMenuLink" />}
+        userMenuFooter={
+          SHOW_UPSTREAM_PROMPTS ? (
+            <SponsorLink dataCy="sponsorMenuLink" />
+          ) : undefined
+        }
       >
         {children}
       </Shell>

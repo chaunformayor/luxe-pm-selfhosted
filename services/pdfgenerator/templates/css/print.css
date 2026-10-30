@@ -50,16 +50,20 @@ span.error {
 
 .logo h1 {
   display: inline-block;
+  font-family: Georgia, "Palatino Linotype", serif;
   font-size: 18pt;
-  color: #330066;
+  color: #0a1628;
+  vertical-align: middle;
+  margin-left: 3mm;
 }
 
 .logo img {
   display: inline-block;
+  vertical-align: middle;
 }
 
 .contact {
-  border-top: 2pt solid #555;
+  border-top: 2pt solid #c9a84c;
   margin: 2pt 0 0 0;
   padding: 5pt 0 0 0;
 }

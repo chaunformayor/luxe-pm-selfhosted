@@ -1,4 +1,7 @@
-import { PROPERTY_COUNT_WARN_THRESHOLD } from '@microrealestate/shared';
+import {
+  PROPERTY_COUNT_WARN_THRESHOLD,
+  SHOW_UPSTREAM_PROMPTS
+} from '@microrealestate/shared';
 import { useQuery } from '@tanstack/react-query';
 import { observer } from 'mobx-react-lite';
 import { useTranslations } from 'next-intl';
@@ -20,7 +23,9 @@ function PropertyCountCard({ className }) {
   });
 
   const overThreshold =
-    !error && (data?.count ?? 0) > PROPERTY_COUNT_WARN_THRESHOLD;
+    SHOW_UPSTREAM_PROMPTS &&
+    !error &&
+    (data?.count ?? 0) > PROPERTY_COUNT_WARN_THRESHOLD;
 
   return (
     <DashboardCard
