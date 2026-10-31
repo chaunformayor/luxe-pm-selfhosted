@@ -1,4 +1,5 @@
 import { DateFormat } from '@microrealestate/common';
+import { formatCityStateZip } from '@microrealestate/shared';
 import Handlebars from 'handlebars';
 import i18n from 'i18n';
 import moment from 'moment';
@@ -69,6 +70,12 @@ export default function ({
       const [args] = _split(params);
       const [dateTxt, localizedFormat] = args as [string, string];
       return moment(dateTxt, DateFormat.DATE_FORMAT).format(localizedFormat);
+    },
+    // Luxe: "City, ST 12345" (US order) from any object with city/state/zipCode.
+    formatCityStateZip: (...params: unknown[]) => {
+      const [args] = _split(params);
+      const [address] = args as [Parameters<typeof formatCityStateZip>[0]];
+      return formatCityStateZip(address);
     },
     formatTerm: (...params: unknown[]) => {
       const [args] = _split(params);

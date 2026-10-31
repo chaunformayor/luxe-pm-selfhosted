@@ -4,6 +4,7 @@ import {
   CardContent,
   CardHeader
 } from '@microrealestate/commonui/components/ui/card';
+import { formatCityStateZip } from '@microrealestate/shared';
 import { AtSign, MapPin, Phone } from 'lucide-react';
 import { Fragment } from 'react';
 
@@ -192,12 +193,9 @@ export default async function ContactCard({
           <div key={`address-${index}`}>
             {address.street1 ? <div>{address.street1}</div> : null}
             {address.street2 ? <div>{address.street2}</div> : null}
-            {address.zipCode || address.city ? (
-              <div>
-                {[address.zipCode, address.city].filter(Boolean).join(' ')}
-              </div>
+            {address.city || address.state || address.zipCode ? (
+              <div>{formatCityStateZip(address)}</div>
             ) : null}
-            {address.state ? <div>{address.state}</div> : null}
             {address.country ? <div>{address.country}</div> : null}
           </div>
         ))}

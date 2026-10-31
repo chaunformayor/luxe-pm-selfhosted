@@ -14,8 +14,6 @@ export type PropertyKind = (typeof PROPERTY_KINDS)[number];
 
 export type PropertyStatus = 'vacant' | 'occupied';
 
-export const PROPERTY_COUNT_WARN_THRESHOLD = 5;
-
 export interface PropertyType<Realm = string> {
   _id: string;
   realmId: Realm;

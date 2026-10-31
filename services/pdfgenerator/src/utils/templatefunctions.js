@@ -41,6 +41,14 @@ export default function ({ locale, currency }) {
     formatDate: (dateTxt, localizedFormat) => {
       return moment(dateTxt, DateFormat.DATE_FORMAT).format(localizedFormat);
     },
+    // Luxe: "City, ST 12345" (US order). Mirrors formatCityStateZip in
+    // shared/src/address.ts; pdfgenerator does not depend on that package.
+    formatCityStateZip: (address) => {
+      const stateZip = [address?.state, address?.zipCode]
+        .filter(Boolean)
+        .join(' ');
+      return [address?.city, stateZip].filter(Boolean).join(', ');
+    },
     formatTerm: (termTxt, timeRange) => {
       const term = moment(termTxt, 'YYYYMMDDHH');
       if (timeRange === 'days') {

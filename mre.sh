@@ -12,7 +12,6 @@
 set -euo pipefail
 
 INSTALL_DIR="${INSTALL_DIR:-$PWD}"
-SPONSOR_URL="https://ko-fi.com/camelaissani/tip"
 # No '-' in the stamp: it is read back as everything before the first one.
 RUN_STAMP="$(date -u +%Y%m%dT%H%M%SZ)"
 SUBCOMMAND=""
@@ -312,18 +311,6 @@ resolve_mongo_uri() {
 
 # ─── End of the block mirrored from install.sh ────────────────────────────
 
-print_donation() {
-  [ "$QUIET" = "1" ] && return 0
-  echo
-  printf '%s' "$C_YELLOW$C_BOLD"
-  cat <<EOF
- ------------------------------------------
-  Enjoying MicroRealEstate?
-  Buy me a coffee -> $SPONSOR_URL
- ------------------------------------------
-EOF
-  printf '%s' "$C_OFF"
-}
 
 is_stamp() {
   [[ "$1" =~ ^[0-9]{8}T[0-9]{6}Z$ ]]
@@ -1026,7 +1013,6 @@ main() {
     logs)    cmd_logs ;;
     *)       die "Unknown command: $SUBCOMMAND" ;;
   esac
-  { [ "$SUBCOMMAND" = "logs" ] && [ "$LOGS_FOLLOW" = "1" ]; } || print_donation
 }
 
 main "$@"

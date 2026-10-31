@@ -2,6 +2,7 @@
 
 import { Separator } from '@microrealestate/commonui/components/ui/separator';
 import { cn } from '@microrealestate/commonui/utils';
+import { LuxeLogo } from '../LuxeLogo';
 import { AppMenu } from './AppMenu';
 import type { MenuItem } from './SideMenuButton';
 
@@ -21,26 +22,19 @@ export function LeftBar({
   return (
     <div
       className={cn(
-        'bg-card flex flex-col fixed w-60 h-full z-50 border-r',
+        'bg-sidebar text-sidebar-foreground flex flex-col fixed top-0 w-60 h-full z-50 border-r border-sidebar-border',
         className
       )}
     >
-      {organizationName ? (
-        <>
-          <div className="whitespace-nowrap text-2xl font-semibold px-4 -mt-10">
+      <div className="px-4 pt-5">
+        <LuxeLogo tone="onDark" showLocation={false} className="h-[52px]" />
+        {organizationName ? (
+          <div className="whitespace-nowrap overflow-hidden text-ellipsis font-serif text-lg text-white mt-3">
             {organizationName}
           </div>
-          <div className="text-muted-foreground px-4 mt-2">MicroRealEstate</div>
-          <Separator className="bg-secondary-foreground/25 mt-4" />
-        </>
-      ) : (
-        <>
-          <div className="whitespace-nowrap text-2xl font-semibold px-4 -mt-10">
-            MicroRealEstate
-          </div>
-          <Separator className="bg-secondary-foreground/25 mt-2" />
-        </>
-      )}
+        ) : null}
+      </div>
+      <Separator className="bg-sidebar-border mt-4" />
       <AppMenu
         menuItems={menuItems}
         selectedMenuItem={selectedMenuItem}

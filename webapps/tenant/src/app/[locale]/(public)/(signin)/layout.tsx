@@ -11,7 +11,10 @@ export default async function SignInLayout({
   const t = await getTranslations('common');
 
   return (
-    <PublicLayout subtitle={t('Tenant')} illustration={<WelcomeIllustration />}>
+    <PublicLayout
+      subtitle={t('Tenant Portal')}
+      illustration={<WelcomeIllustration />}
+    >
       {children}
     </PublicLayout>
   );

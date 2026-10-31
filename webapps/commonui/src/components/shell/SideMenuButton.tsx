@@ -18,23 +18,32 @@ export type MenuItem = {
 export function SideMenuButton({
   item,
   selected,
+  tone = 'default',
   className,
   onClick
 }: {
   item: MenuItem;
   selected?: boolean;
+  tone?: 'default' | 'sidebar';
   className?: string;
   onClick: () => void;
 }) {
+  const colors =
+    tone === 'sidebar'
+      ? selected
+        ? 'bg-sidebar-primary text-sidebar-primary-foreground hover:bg-sidebar-primary disabled:opacity-100'
+        : 'bg-transparent text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground'
+      : selected
+        ? 'bg-primary text-primary-foreground disabled:opacity-100'
+        : 'bg-transparent hover:bg-primary/10';
+
   return (
     <Button
       variant={selected ? 'default' : 'ghost'}
       onClick={onClick}
       className={cn(
         'border-none rounded-none shadow-none h-12 w-full justify-between gap-0 text-foreground',
-        selected
-          ? 'bg-primary text-primary-foreground disabled:opacity-100'
-          : 'bg-transparent hover:bg-primary/10',
+        colors,
         className
       )}
       data-cy={item.dataCy}

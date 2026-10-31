@@ -11,7 +11,9 @@ import {
   SheetTrigger
 } from '@microrealestate/commonui/components/ui/sheet';
 import { cn } from '@microrealestate/commonui/utils';
+import { BRAND } from '@microrealestate/shared';
 import { LuMenu } from 'react-icons/lu';
+import { LuxeLogo } from '../LuxeLogo';
 import { AppMenu } from './AppMenu';
 import type { MenuItem } from './SideMenuButton';
 
@@ -39,22 +41,18 @@ export function HamburgerMenu({
             <LuMenu />
           </Button>
         </SheetTrigger>
-        <SheetContent side="left" className="flex flex-col gap-0 px-0">
+        <SheetContent
+          side="left"
+          className="flex flex-col gap-0 px-0 bg-sidebar text-sidebar-foreground border-sidebar-border"
+        >
           <SheetHeader className="text-left">
-            {organizationName ? (
-              <>
-                <SheetTitle className="px-4">{organizationName}</SheetTitle>
-                <SheetDescription className="px-4">
-                  MicroRealEstate
-                </SheetDescription>
-                <Separator className="bg-secondary-foreground/25 mt-4" />
-              </>
-            ) : (
-              <>
-                <SheetTitle className="px-4">MicroRealEstate</SheetTitle>
-                <Separator className="bg-secondary-foreground/25 mt-4" />
-              </>
-            )}
+            <SheetTitle className="px-4">
+              <LuxeLogo tone="onDark" showLocation={false} className="h-10" />
+            </SheetTitle>
+            <SheetDescription className="px-4 font-serif text-lg text-white">
+              {organizationName || BRAND.name}
+            </SheetDescription>
+            <Separator className="bg-sidebar-border mt-4" />
           </SheetHeader>
           <AppMenu
             menuItems={menuItems}

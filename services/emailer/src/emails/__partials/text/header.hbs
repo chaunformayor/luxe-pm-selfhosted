@@ -4,10 +4,7 @@
 {{#if landlord.addresses.[0].street2}}
 {{{landlord.addresses.[0].street2}}}
 {{/if}}
-{{{landlord.addresses.[0].zipCode}}} {{{landlord.addresses.[0].city}}}
-{{#if landlord.addresses.[0].state}}
-{{{landlord.addresses.[0].state}}}
-{{/if}}
+{{{formatCityStateZip landlord.addresses.[0]}}}
 {{#if landlord.addresses.[0].country}}
 {{{landlord.addresses.[0].country}}}
 {{/if}}
@@ -19,4 +16,4 @@
 {{#if tenant.street2}}
                                               {{{tenant.street2}}}
 {{/if}}
-                                              {{{tenant.zipCode}}} {{{tenant.city}}}
+                                              {{{formatCityStateZip tenant}}}

@@ -65,7 +65,6 @@ set -euo pipefail
 
 MRE_SRC_URL_DEFAULT="https://raw.githubusercontent.com/microrealestate/microrealestate/main"
 MRE_SRC_URL="${MRE_SRC_URL:-$MRE_SRC_URL_DEFAULT}"
-SPONSOR_URL="https://ko-fi.com/camelaissani/tip"
 INSTALL_DIR="${INSTALL_DIR:-$PWD}"
 COMPOSE_HINT_DEFAULT="docker compose --env-file .env -f docker/docker-compose.yml"
 SUBCOMMAND=""
@@ -1333,17 +1332,6 @@ EOF
   echo
 }
 
-print_donation() {
-  echo
-  printf '%s' "$C_YELLOW$C_BOLD"
-  cat <<EOF
- ------------------------------------------
-  Enjoying MicroRealEstate?
-  Buy me a coffee -> $SPONSOR_URL
- ------------------------------------------
-EOF
-  printf '%s' "$C_OFF"
-}
 
 # --- Subcommands ----------------------------------------------------------
 
@@ -1404,7 +1392,6 @@ cmd_install() {
     wait_until_responding
 
     print_banner
-    print_donation
     return
   fi
 
@@ -1437,7 +1424,6 @@ cmd_install() {
   wait_until_responding
 
   print_banner
-  print_donation
 }
 
 cmd_update() {
@@ -1510,7 +1496,6 @@ cmd_update() {
   wait_until_responding
 
   print_banner
-  print_donation
 }
 
 # --- Entrypoint -----------------------------------------------------------

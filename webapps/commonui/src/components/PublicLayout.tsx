@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react';
+import { LuxeLogo } from './LuxeLogo';
 
 interface PublicLayoutProps {
   subtitle?: string;
@@ -13,18 +14,27 @@ export default function PublicLayout({
 }: PublicLayoutProps) {
   return (
     <div className="flex h-screen bg-white dark:bg-background">
-      <div className="hidden md:flex flex-col items-center justify-center space-y-20 text-center font-medium bg-sky-900 text-white/95 w-xl">
-        <div className="space-y-2">
-          <div className="text-4xl">MicroRealEstate</div>
-          {subtitle && <div>{subtitle}</div>}
+      <div className="hidden md:flex flex-col items-center justify-center space-y-20 text-center font-medium bg-luxe-navy text-white/95 w-xl border-r-4 border-luxe-gold">
+        <div className="flex flex-col items-center space-y-4">
+          <LuxeLogo tone="onDark" className="h-20" />
+          {subtitle && (
+            <div className="font-serif text-xl tracking-widest text-luxe-gold-light uppercase">
+              {subtitle}
+            </div>
+          )}
         </div>
         {illustration}
       </div>
-      <div className="relative size-full">
-        <div className="md:hidden text-4xl text-center absolute top-30 w-full">
-          MicroRealEstate
+      <div className="flex flex-col size-full overflow-y-auto">
+        <div className="md:hidden flex flex-col items-center gap-2 pt-10 pb-4">
+          <LuxeLogo tone="onLight" className="h-14" />
+          {subtitle && (
+            <div className="font-serif text-sm tracking-widest text-luxe-gold-dark dark:text-luxe-gold-light uppercase">
+              {subtitle}
+            </div>
+          )}
         </div>
-        <div className="flex flex-col justify-center size-full">{children}</div>
+        <div className="flex flex-col justify-center grow">{children}</div>
       </div>
     </div>
   );

@@ -1,4 +1,5 @@
-import { Inter } from 'next/font/google';
+import { BRAND } from '@microrealestate/shared';
+import { Inter, Playfair_Display } from 'next/font/google';
 import { notFound } from 'next/navigation';
 import { hasLocale } from 'next-intl';
 import { getMessages, setRequestLocale } from 'next-intl/server';
@@ -21,7 +22,14 @@ const inter = Inter({
   variable: '--font-app'
 });
 
-const APP_TITLE = ['MicroRealEstate', 'Landlord'];
+const playfair = Playfair_Display({
+  weight: ['400', '700'],
+  subsets: ['latin', 'latin-ext'],
+  display: 'swap',
+  variable: '--font-luxe-serif'
+});
+
+const APP_TITLE = [BRAND.name, 'Manager Portal'];
 if (process.env.NODE_ENV === 'development') {
   APP_TITLE.push('DEV');
 } else if (process.env.DEMO_MODE === 'true') {
@@ -56,10 +64,14 @@ export default async function LocaleLayout({
   };
 
   return (
-    <html lang={locale} className={inter.variable} suppressHydrationWarning>
+    <html
+      lang={locale}
+      className={`${inter.variable} ${playfair.variable}`}
+      suppressHydrationWarning
+    >
       <head>
         <link rel="shortcut icon" href={`${BASE_PATH}/favicon.svg`} />
-        <meta name="theme-color" content="hsl(var(--primary))" />
+        <meta name="theme-color" content="#0a1628" />
         <meta
           name="viewport"
           content="minimum-scale=1, initial-scale=1, width=device-width"

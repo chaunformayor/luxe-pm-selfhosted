@@ -1,10 +1,6 @@
 const ISO_DATE_RE = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?Z$/;
 const FORMATTED_DATE_RE = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}$/;
 
-export const SPONSOR_URL = 'https://ko-fi.com/camelaissani/tip';
-export const COMMERCIAL_CONTACT_URL =
-  'mailto:camel.aissani@gmail.com?subject=MicroRealEstate%20commercial%20use';
-
 export const PASSWORD_MIN_LENGTH = 8;
 /** at least one lowercase, one uppercase and one digit */
 export const PASSWORD_PATTERN = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;

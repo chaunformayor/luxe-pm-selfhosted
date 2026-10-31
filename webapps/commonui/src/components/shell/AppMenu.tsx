@@ -24,6 +24,7 @@ export function AppMenu({
               <SideMenuButton
                 item={item}
                 selected={item === selectedMenuItem}
+                tone="sidebar"
                 onClick={() => onMenuClick(item)}
               />
             </SheetClose>
@@ -31,6 +32,7 @@ export function AppMenu({
             <SideMenuButton
               item={item}
               selected={item === selectedMenuItem}
+              tone="sidebar"
               onClick={() => onMenuClick(item)}
             />
           )}
