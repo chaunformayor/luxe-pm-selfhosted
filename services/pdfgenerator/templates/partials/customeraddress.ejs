@@ -7,10 +7,7 @@
 	<% if (tenant.addresses[0].street2) { %>
     	<br><%= tenant.addresses[0].street2 %>
     <% } %>
-	<br><%= tenant.addresses[0].zipCode %> <%= tenant.addresses[0].city %>
-	<% if (tenant.addresses[0].state) { %>
-		<br><%= tenant.addresses[0].state %>
-	<% } %>
+	<br><%= _.formatCityStateZip(tenant.addresses[0]) %>
 	<% if (tenant.addresses[0].country) { %>
 		<br><%= tenant.addresses[0].country %>
 	<% } %>

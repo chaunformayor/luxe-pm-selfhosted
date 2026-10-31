@@ -8,6 +8,7 @@ export namespace API {
   export import Tenant = TenantModule;
 }
 
+export * from './address';
 export * from './branding';
 export * from './common/index';
 export * from './entities/account';

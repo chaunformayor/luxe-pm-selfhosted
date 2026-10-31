@@ -97,9 +97,79 @@ BRAND.websiteUrl  // 'https://luxestl.com'
 
 It also exports `SHOW_UPSTREAM_PROMPTS = false` (see below).
 
+### Address format (US)
+
+`shared/src/address.ts` is the single source for how addresses print:
+
+```ts
+formatCityStateZip({ city: 'St. Louis', state: 'MO', zipCode: '63101' })  // 'St. Louis, MO 63101'
+formatAddressLines(address)  // ['555 Washington Ave', 'Suite 200', 'St. Louis, MO 63101', 'USA']
+```
+
+Missing parts are dropped cleanly ("St. Louis, MO", "MO 63101", …). The country line only shows if
+one was entered, so leave Country blank for domestic addresses.
+
+| Where | Uses |
+|---|---|
+| Web apps (address form read-only view, tenant property popover, tenant portal contact card) | `formatAddressLines` / `formatCityStateZip` from `@microrealestate/shared` |
+| Emails (`services/emailer`) | Handlebars helper `{{formatCityStateZip obj}}`, which calls the shared function |
+| PDFs (`services/pdfgenerator`) | EJS helper `_.formatCityStateZip(obj)`, a 3-line copy of the shared function (pdfgenerator doesn't depend on `shared`, and adding it would change its Docker build) |
+
 ---
 
 ## Change log
+
+### 2026-10-30: US address format (branch `luxe/branding`)
+
+Goal: print and enter addresses the US way. Upstream used the European order ("63101 St. Louis",
+with the state on its own line).
+
+**Shared formatter**
+- `shared/src/address.ts` (new): `formatCityStateZip()` and `formatAddressLines()` (see
+  [Address format](#address-format-us)). `shared/src/index.ts` re-exports it.
+
+**Web apps**
+- `webapps/commonui/src/components/formfields/AddressField.tsx`:
+  - Entry order is now Street 1, Street 2, then **City | State | ZIP** on one row (desktop), then
+    Country. Upstream had City | Postal code, then State | Country.
+  - The read-only view uses `formatAddressLines`.
+  - This form is used for property, tenant and organization addresses.
+- `webapps/landlord/locales/en/common.json`: the "Postal code" label now reads **ZIP code** in
+  English. The key is unchanged.
+- `webapps/landlord/src/components/tenants/TenantPropertyList.js`: the property address popover
+  uses `formatAddressLines`. Upstream printed "City Zip" with "State Country" on the next line.
+- `webapps/tenant/src/components/contact-card.tsx`: the tenant portal contact card shows
+  "City, ST ZIP" on one line.
+
+**Emails**
+- `services/emailer/src/utils/templatefunctions.ts`: new `formatCityStateZip` helper.
+- `services/emailer/src/emails/__partials/html/landlordcontact.hbs`: HTML email footer.
+- `services/emailer/src/emails/__partials/text/header.hbs`: plain-text header, for both the landlord
+  and tenant blocks. The tenant block now includes the state, which upstream left out.
+
+**PDFs**
+- `services/pdfgenerator/src/utils/templatefunctions.js`: new `_.formatCityStateZip` helper.
+- `services/pdfgenerator/templates/partials/header.ejs`: letterhead (organization address).
+- `services/pdfgenerator/templates/partials/customeraddress.ejs`: tenant address block on receipts
+  and notices.
+
+**Not changed**
+- Lease and document templates built in the app's editor use individual field markers
+  (`{{tenant.address.city}}`, `{{tenant.address.state}}`, …), so whoever writes the template
+  chooses the order. Write Luxe's templates in US order.
+- `AddressMap.tsx` (map lookups): geocoding doesn't depend on display order.
+- The stored data shape (`street1`, `street2`, `city`, `state`, `zipCode`, `country`) is unchanged,
+  so no migration is needed.
+
+**Verification**
+- Edge cases for both formatters (all parts, missing city/state/ZIP, empty, null): the shared and
+  PDF versions return identical results.
+- Rendered the real email text header, HTML footer, PDF letterhead and PDF tenant block with sample
+  data. Output was "St. Louis, MO 63101" and "Belleville, IL 62220".
+- Checked the address form in the browser: fields stack on phones, and City | State | ZIP sit on
+  one row on desktop. The read-only view is correct.
+- `yarn tsc` passes in `shared`, `commonui`, `landlord`, `tenant` and `emailer`. `biome check` is
+  clean.
 
 ### 2026-10-30: Branding pass (branch `luxe/branding`)
 
@@ -214,6 +284,9 @@ Where conflicts are most likely, and how to resolve them:
 | `services/emailer/src/locales/*.json` | Take upstream's file, then search for `MicroRealEstate` in **values** and replace with `Luxe Property Solutions`. Leave the keys alone. |
 | `services/emailer/src/emails/__partials/html/htmlhead.hbs` | Re-apply the color changes. |
 | Files using `SHOW_UPSTREAM_PROMPTS` | Keep the flag check around anything upstream adds that asks for donations or a commercial contact. |
+| `webapps/commonui/src/components/formfields/AddressField.tsx` | Keep the City / State / ZIP order and `formatAddressLines`. |
+| Email partials (`text/header.hbs`, `html/landlordcontact.hbs`) and PDF partials (`header.ejs`, `customeraddress.ejs`) | Anywhere upstream prints `zipCode` then `city`, swap it for the `formatCityStateZip` helper. |
+| `services/*/src/utils/templatefunctions.*` | Keep the `formatCityStateZip` helper when taking upstream's version. |
 
 After merging, run the checks in [Local development notes](#local-development-notes). Then
 search for anything new that shows the old brand. Both commands should print nothing:
@@ -264,9 +337,8 @@ To run the full app (sign-in, data, emails, PDFs) you need Docker. See `document
 Branding follow-ups:
 - [ ] **Sign-in subtitles**: they still say "Landlord" and "Tenant". Should the staff side say
       something like "Manager Portal" or "Owner Portal"?
-- [ ] **US address format on PDFs**: the letterhead prints `63101 St. Louis` (upstream's European
-      order). It should read `St. Louis, MO 63101`. The same fix is likely needed in the customer
-      address block and the emails.
+- [x] **US address format**: done 2026-10-30 (see the change log). Addresses now print as
+      `St. Louis, MO 63101` in the app, emails and PDFs.
 - [ ] **Logo image in emails**: emails use a styled text wordmark today. A hosted PNG logo would
       need a public URL (luxestl.com or the app's own domain).
 - [ ] Optionally rebrand the Docker image labels and the CLI banner if anyone sees them.

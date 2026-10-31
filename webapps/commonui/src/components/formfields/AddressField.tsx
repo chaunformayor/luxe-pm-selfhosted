@@ -1,3 +1,4 @@
+import { formatAddressLines } from '@microrealestate/shared';
 import { useField } from 'formik';
 import { useTranslations } from 'next-intl';
 import FormField from './FormField';
@@ -28,18 +29,10 @@ export function AddressField({
     if (!address?.street1) {
       return null;
     }
-    const parts = [
-      address.street1,
-      address.street2,
-      address.zipCode,
-      address.city,
-      address.state,
-      address.country
-    ].filter(Boolean);
     return (
       <FormField name={addressField.name} label={t('Address')}>
         <div className="py-2 font-medium whitespace-pre-wrap">
-          {parts.join('\n')}
+          {formatAddressLines(address).join('\n')}
         </div>
       </FormField>
     );
@@ -62,7 +55,7 @@ export function AddressField({
         error={error?.street2}
       />
       <div className="flex flex-col gap-4 md:grid md:grid-cols-6">
-        <div className="col-span-3">
+        <div className="md:col-span-3">
           <TextField
             label={t('City')}
             name="address.city"
@@ -71,23 +64,22 @@ export function AddressField({
             error={error?.city}
           />
         </div>
-        <div className="md:col-span-3">
-          <TextField
-            label={t('Postal code')}
-            name="address.zipCode"
-            autoComplete="postal-code"
-            disabled={disabled}
-            error={error?.zipCode}
-          />
-        </div>
-
-        <div className="md:col-span-3">
+        <div className="md:col-span-1">
           <TextField
             label={t('State')}
             name="address.state"
             autoComplete="address-level1"
             disabled={disabled}
             error={error?.state}
+          />
+        </div>
+        <div className="md:col-span-2">
+          <TextField
+            label={t('Postal code')}
+            name="address.zipCode"
+            autoComplete="postal-code"
+            disabled={disabled}
+            error={error?.zipCode}
           />
         </div>
         <div className="md:col-span-3">

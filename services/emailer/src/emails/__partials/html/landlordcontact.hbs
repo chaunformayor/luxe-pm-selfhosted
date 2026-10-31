@@ -12,10 +12,7 @@
             {{#if landlord.addresses.[0].street2}}
                 {{landlord.addresses.[0].street2}} 
             {{/if}}
-            {{landlord.addresses.[0].zipCode}} {{landlord.addresses.[0].city}} 
-            {{#if landlord.addresses.[0].state}}
-                {{landlord.addresses.[0].state}} 
-            {{/if}}
+            {{formatCityStateZip landlord.addresses.[0]}} 
             {{#if landlord.addresses.[0].country}}
                 {{landlord.addresses.[0].country}}
             {{/if}}

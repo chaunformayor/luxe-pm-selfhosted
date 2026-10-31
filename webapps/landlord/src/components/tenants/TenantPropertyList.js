@@ -5,6 +5,7 @@ import {
   PopoverTrigger
 } from '@microrealestate/commonui/components/ui/popover';
 import { cn } from '@microrealestate/commonui/utils';
+import { formatAddressLines } from '@microrealestate/shared';
 import PropertyIcon from '../properties/PropertyIcon';
 
 function Address({ address }) {
@@ -14,19 +15,11 @@ function Address({ address }) {
 
   return (
     <p className="text-xs text-muted-foreground">
-      {address.street1}
-      <br />
-      {address.street2 ? (
-        <>
-          {address.street2}
-          <br />
-        </>
-      ) : null}
-      {address.city} {address.zipCode}
-      <br />
-      {address.state && address.country
-        ? `${address.state} ${address.country}`
-        : address.country}
+      {formatAddressLines(address).map((line) => (
+        <span key={line} className="block">
+          {line}
+        </span>
+      ))}
     </p>
   );
 }
