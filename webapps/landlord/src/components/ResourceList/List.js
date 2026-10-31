@@ -29,7 +29,6 @@ export default function List({
   filters,
   filterFn,
   renderActions,
-  renderNotice,
   renderList
 }) {
   const router = useRouter();
@@ -95,8 +94,6 @@ export default function List({
         onSearch={handleSearch}
         className="mb-8"
       />
-
-      {renderNotice ? <div className="mb-4">{renderNotice()}</div> : null}
 
       {title ? (
         <h2 className="text-base md:text-lg font-semibold mb-4">{title}</h2>

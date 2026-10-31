@@ -25,11 +25,16 @@ export default function PublicLayout({
         </div>
         {illustration}
       </div>
-      <div className="relative size-full">
-        <div className="md:hidden flex justify-center absolute top-30 w-full">
+      <div className="flex flex-col size-full overflow-y-auto">
+        <div className="md:hidden flex flex-col items-center gap-2 pt-10 pb-4">
           <LuxeLogo tone="onLight" className="h-14" />
+          {subtitle && (
+            <div className="font-serif text-sm tracking-widest text-luxe-gold-dark dark:text-luxe-gold-light uppercase">
+              {subtitle}
+            </div>
+          )}
         </div>
-        <div className="flex flex-col justify-center size-full">{children}</div>
+        <div className="flex flex-col justify-center grow">{children}</div>
       </div>
     </div>
   );

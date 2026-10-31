@@ -3,6 +3,3 @@ contact_links:
   - name: Security vulnerability
     url: https://github.com/microrealestate/microrealestate/security/policy
     about: Report privately — never in a public issue.
-  - name: Commercial licensing
-    url: mailto:camel.aissani@gmail.com?subject=MicroRealEstate%20commercial%20use
-    about: Commercial use, hosted services, or any use beyond the licence terms.

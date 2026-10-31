@@ -29,7 +29,7 @@ const playfair = Playfair_Display({
   variable: '--font-luxe-serif'
 });
 
-const APP_TITLE = [BRAND.name, 'Landlord'];
+const APP_TITLE = [BRAND.name, 'Manager Portal'];
 if (process.env.NODE_ENV === 'development') {
   APP_TITLE.push('DEV');
 } else if (process.env.DEMO_MODE === 'true') {

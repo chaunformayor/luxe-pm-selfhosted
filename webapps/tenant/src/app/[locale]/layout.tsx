@@ -10,7 +10,7 @@ import type { ReactNode } from 'react';
 import AppProvider from '@/providers/AppProvider';
 import { BASE_PATH } from '@/utils/basepath';
 
-const APP_TITLE = [BRAND.name, 'Tenant'];
+const APP_TITLE = [BRAND.name, 'Tenant Portal'];
 if (process.env.NODE_ENV === 'development') {
   APP_TITLE.push('DEV');
 } else if (process.env.DEMO_MODE === 'true') {

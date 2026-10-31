@@ -3,17 +3,13 @@
 import { Shell } from '@microrealestate/commonui/components/shell/Shell';
 import Loading from '@microrealestate/commonui/components/ui/Loading';
 import { useSession } from '@microrealestate/commonui/providers/SessionProvider';
-import { SHOW_UPSTREAM_PROMPTS } from '@microrealestate/shared';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { observer } from 'mobx-react-lite';
 import moment from 'moment';
 import { useTranslations } from 'next-intl';
 import { useCallback, useMemo, useRef, useState } from 'react';
-import DonateDialog from '@/components/DonateDialog';
-import SponsorLink from '@/components/SponsorLink';
 import leftMenuItemsRaw from '@/components/shell/leftmenuitems';
 import rightMenuItemsRaw from '@/components/shell/rightmenuitems';
-import useDonatePrompt from '@/hooks/useDonatePrompt';
 import { usePathname, useRouter } from '@/i18n/navigation';
 import { useNav } from '@/providers/NavProvider';
 import { useStore } from '@/providers/StoreProvider';
@@ -30,7 +26,6 @@ function LandlordShell({ children }) {
   const { redirectTo } = useNav();
   const [signingOut, setSigningOut] = useState(false);
   const initialized = useRef(false);
-  const donatePrompt = useDonatePrompt();
 
   if (!initialized.current && session?.account && session?.accessToken) {
     store.user.setUserFromSession(session.account, session.accessToken);
@@ -50,11 +45,6 @@ function LandlordShell({ children }) {
     queryKey: [QueryKeys.TODOS],
     queryFn: fetchTodos
   });
-
-  const showDonateDialog =
-    SHOW_UPSTREAM_PROMPTS &&
-    donatePrompt.shouldShow &&
-    pathname.endsWith('/dashboard');
 
   const isSetupRoute =
     pathname.startsWith('/setuporganization') ||
@@ -135,20 +125,9 @@ function LandlordShell({ children }) {
         onMenuClick={handleMenuClick}
         onUserMenuClick={handleUserMenuClick}
         onSignOut={handleSignOut}
-        userMenuFooter={
-          SHOW_UPSTREAM_PROMPTS ? (
-            <SponsorLink dataCy="sponsorMenuLink" />
-          ) : undefined
-        }
       >
         {children}
       </Shell>
-      <DonateDialog
-        open={showDonateDialog}
-        canDismissForever={donatePrompt.canDismissForever}
-        onSnooze={donatePrompt.snooze}
-        onDismissForever={donatePrompt.dismissForever}
-      />
     </>
   );
 }

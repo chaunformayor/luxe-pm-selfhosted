@@ -8,7 +8,7 @@ export default function Layout({ children }: PropsWithChildren) {
 
   return (
     <PublicLayout
-      subtitle={t('Landlord')}
+      subtitle={t('Manager Portal')}
       illustration={<SignInUpIllustration />}
     >
       {children}

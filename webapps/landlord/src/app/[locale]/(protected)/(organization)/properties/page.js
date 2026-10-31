@@ -1,18 +1,12 @@
 'use client';
 
 import { Button } from '@microrealestate/commonui/components/ui/button';
-import { cn } from '@microrealestate/commonui/utils';
-import {
-  PROPERTY_COUNT_WARN_THRESHOLD,
-  SHOW_UPSTREAM_PROMPTS
-} from '@microrealestate/shared';
 import { useQuery } from '@tanstack/react-query';
 import { useTranslations } from 'next-intl';
 import { useCallback, useMemo, useState } from 'react';
-import { LuCirclePlus, LuTriangleAlert } from 'react-icons/lu';
+import { LuCirclePlus } from 'react-icons/lu';
 import { toast } from 'sonner';
 import Page from '@/components/Page';
-import PropertyThresholdNotice from '@/components/PropertyThresholdNotice';
 import NewPropertyDialog from '@/components/properties/NewPropertyDialog';
 import PropertyList from '@/components/properties/PropertyList';
 import types from '@/components/properties/types';
@@ -84,46 +78,20 @@ function Properties() {
     [t]
   );
 
-  const propertyCount = data?.length ?? 0;
-  const overThreshold =
-    SHOW_UPSTREAM_PROMPTS && propertyCount > PROPERTY_COUNT_WARN_THRESHOLD;
-
   const renderActions = useMemo(() => {
     const renderActions = () => (
-      <div className="flex flex-col gap-1">
-        <Button
-          variant="outline"
-          className="w-full gap-2"
-          onClick={handleAction}
-          data-cy="addPropertyButton"
-        >
-          <LuCirclePlus className="size-4" />
-          {t('Add a property')}
-        </Button>
-        {SHOW_UPSTREAM_PROMPTS ? (
-          <span
-            className={cn(
-              'text-xs flex items-center justify-center md:justify-end gap-1',
-              overThreshold ? 'text-warning' : 'text-muted-foreground'
-            )}
-            data-cy="propertyCountCaption"
-          >
-            {overThreshold ? <LuTriangleAlert className="size-3.5" /> : null}
-            {t('{used} of {max} properties', {
-              used: propertyCount,
-              max: PROPERTY_COUNT_WARN_THRESHOLD
-            })}
-          </span>
-        ) : null}
-      </div>
+      <Button
+        variant="outline"
+        className="w-full gap-2"
+        onClick={handleAction}
+        data-cy="addPropertyButton"
+      >
+        <LuCirclePlus className="size-4" />
+        {t('Add a property')}
+      </Button>
     );
     return renderActions;
-  }, [handleAction, t, propertyCount, overThreshold]);
-
-  const renderNotice = useMemo(
-    () => (overThreshold ? () => <PropertyThresholdNotice /> : undefined),
-    [overThreshold]
-  );
+  }, [handleAction, t]);
 
   if (isError) {
     toast.error(t('Error fetching properties'));
@@ -136,7 +104,6 @@ function Properties() {
         filters={filters}
         filterFn={_filterData}
         renderActions={renderActions}
-        renderNotice={renderNotice}
         renderList={PropertyList}
       />
       <NewPropertyDialog

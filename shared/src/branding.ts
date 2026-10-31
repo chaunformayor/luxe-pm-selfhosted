@@ -9,9 +9,3 @@ export const BRAND = {
   location: 'St. Louis, Missouri',
   websiteUrl: 'https://luxestl.com'
 } as const;
-
-/**
- * Upstream MicroRealEstate shows donate, sponsor and "more than 5 properties"
- * prompts. Luxe runs under a commercial license, so these stay hidden.
- */
-export const SHOW_UPSTREAM_PROMPTS = false;
